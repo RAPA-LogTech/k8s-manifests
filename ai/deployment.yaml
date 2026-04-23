@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ai
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ai
+  template:
+    metadata:
+      labels:
+        app: ai
+    spec:
+      serviceAccountName: ai-service
+      containers:
+        - name: ai
+          image: 717777571301.dkr.ecr.ap-northeast-2.amazonaws.com/log-platform-dev-ai-service:latest
+          ports:
+            - containerPort: 80
+          envFrom:
+            - configMapRef:
+                name: ai-config
+          resources:
+            limits:
+              cpu: 1000m
+              memory: 1024Mi
+            requests:
+              cpu: 500m
+              memory: 512Mi
+          startupProbe:
+            httpGet:
+              path: /health
+              port: 80
+            periodSeconds: 5
+            failureThreshold: 120
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 80
+            periodSeconds: 15
+          readinessProbe:
+            httpGet:
+              path: /health/ready
+              port: 80
+            periodSeconds: 5

@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: observability
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: observability
+  template:
+    metadata:
+      labels:
+        app: observability
+    spec:
+      serviceAccountName: observability-service
+      containers:
+        - name: observability
+          image: 717777571301.dkr.ecr.ap-northeast-2.amazonaws.com/log-platform-dev-observability-service:latest
+          ports:
+            - containerPort: 80
+          envFrom:
+            - configMapRef:
+                name: observability-config
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 250m
+              memory: 256Mi
+          startupProbe:
+            httpGet:
+              path: /health
+              port: 80
+            periodSeconds: 5
+            failureThreshold: 60
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 80
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /health/ready
+              port: 80
+            periodSeconds: 5
