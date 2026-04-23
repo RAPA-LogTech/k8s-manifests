@@ -16,7 +16,7 @@ spec:
       serviceAccountName: ai-service
       containers:
         - name: ai
-          image: 717777571301.dkr.ecr.ap-northeast-2.amazonaws.com/log-platform-dev-ai-service:latest
+          image: 717777571301.dkr.ecr.ap-northeast-2.amazonaws.com/log-platform-dev-ai-service:20260423201435
           ports:
             - containerPort: 80
           envFrom:
