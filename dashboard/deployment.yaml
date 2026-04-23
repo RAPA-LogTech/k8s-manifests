@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: dashboard
-          image: 717777571301.dkr.ecr.ap-northeast-2.amazonaws.com/log-platform-dev-dashboard:20260423204927
+          image: 717777571301.dkr.ecr.ap-northeast-2.amazonaws.com/log-platform-dev-dashboard:20260423210002
           ports:
             - containerPort: 3000
           envFrom:
