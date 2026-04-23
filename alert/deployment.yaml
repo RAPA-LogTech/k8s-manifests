@@ -16,7 +16,7 @@ spec:
       serviceAccountName: alert-service
       containers:
         - name: alert
-          image: 717777571301.dkr.ecr.ap-northeast-2.amazonaws.com/log-platform-dev-alert-service:latest
+          image: 717777571301.dkr.ecr.ap-northeast-2.amazonaws.com/log-platform-dev-alert-service:20260423202313
           ports:
             - containerPort: 80
           envFrom:
